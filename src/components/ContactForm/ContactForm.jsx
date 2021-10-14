@@ -5,8 +5,7 @@ import styles from "./ContactForm.module.css";
 class ContactForm extends Component {
   state = {
     name: "",
-    number: "",
-    newContact: null,
+    number: ""
   };
 
   handleChange = (e) => {
@@ -19,11 +18,11 @@ class ContactForm extends Component {
     const { name, number } = this.state;
     const { cbAddNewContact } = this.props;
     const newContact = {
-      name,
-      number,
       id: shortid(),
+      name,
+      number,      
     };
-    this.setState({ name: "", number: "", newContact });
+    this.setState({ name: "", number: "" });
     cbAddNewContact(newContact);
   };
 

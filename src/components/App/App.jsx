@@ -8,16 +8,22 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-      { id: "id-5", name: "Will Smith", number: "911-911-911" },
-      { id: "id-6", name: "Alice Cooper", number: "666-99-333" },
-    ],
+    contacts: [],
     filter: "",
   };
+
+  componentDidMount() {    
+    const localProducts = localStorage.getItem('allContacts');
+    const parseProducts = JSON.parse(localProducts);
+    if (parseProducts) {
+      this.setState({ contacts: parseProducts });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('allContacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +51,7 @@ class App extends Component {
   getFilteredContacts = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase())
+      name.toLowerCase().includes(filter.trim().toLowerCase())
     );
   };
 
@@ -57,11 +63,13 @@ class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm cbAddNewContact={this.addNewContact} />
         <h2>Contacts</h2>
+        <div className="Contacts">
         <Filter filteringName={filter} cbInputChange={this.handleChange} />
         <ContactList
           filteredContacts={filteredContacts}
           cbRemoveContact={this.removeContact}
-        />
+          />
+          </div>
       </div>
     );
   }

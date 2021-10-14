@@ -4,10 +4,9 @@ import styled from "styled-components";
 
 const Styles = styled.div`
   .selector1 {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
-    margin: 20px auto;
-    box-shadow: lightgrey 1px 4px;
+    margin: 20px auto;    
   }
   .selector2 {
     background-color: rgb(63, 207, 243);
@@ -16,7 +15,7 @@ const Styles = styled.div`
   }
   .selector3 {
     line-height: 2;
-    border: 1px solid #a3a1a1;
+   border: 1px solid burlywood;
     text-align: center;
   }
 `;
